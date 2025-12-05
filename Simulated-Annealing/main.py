@@ -83,6 +83,6 @@ print("Наименьшая точка:", xmin)
 print("Значение функции:", fmin)
 
 print("\nТаблица:")
-print(table.head(20))
+print(table.head(10))
 print('...')
-print(table.tail(20))
+print(table.tail(10))

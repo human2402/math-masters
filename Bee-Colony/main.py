@@ -9,24 +9,23 @@ np.random.seed(42)  # для воспроизводимости
 dim = 3  # размерность (x1, x2, x3)
 bounds = np.array([[0.0, 1.0]] * dim)  # область D: xi ∈ [0,1]
 
-# функция из задания
 def g(x):
     x1, x2, x3 = x
     val = 0.8 * (x1 - 0.8)**4 + 0.4 * (x2 - 0.4)**2 + 0.4 * (x3 - 0.1)**2 + 5.0
     return math.log(val)
 
-# целевая функция для максимизации (по условию: -g)
+# целевая функция для максимизации 
 def target(x):
     return -g(x)
 
-# --- Параметры ABC ---
+# --- Параметры ---
 S = 30        # число разведчиков
 N = 6         # лучшие точки
 M = 6         # перспективные точки
 L = 10        # пчёлы для уточнения вокруг лучших
 P = 4         # пчёлы для уточнения вокруг перспективных
 R0 = 0.25     # начальный радиус окрестности
-R_min = 1e-3  # минимальный радиус
+R_min = 0.001  # минимальный радиус
 alpha_R = 0.98 # уменьшение радиуса на каждой итерации
 max_iters = 200
 
@@ -76,7 +75,6 @@ for it in range(max_iters):
     order = np.argsort(-vals)
     best_indices = order[:N]
     promising_indices = order[N:N+M]
-    
     new_centers = []
     new_vals = []
     
@@ -148,7 +146,7 @@ for it in range(max_iters):
 
 # --- Вывод ---
 history_df = pd.DataFrame(history_rows)
-print(history_df.head(10))  # первые 10 строк истории
+print(history_df.head(10))
 
 print("\nНайденная точка (x1,x2,x3):", best_point)
 print("Значение целевой функции (максимум):", best_val)
